@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://d24emgns8mtm2" path="res://assets/sprites/white.png" id="1_k6s54"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7tmfp"]
-size = Vector2(32, 32)
+size = Vector2(32, 56)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j6xku"]
 size = Vector2(512, 32)
@@ -15,12 +15,14 @@ size = Vector2(512, 32)
 script = ExtResource("1_7tmfp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_7tmfp")
 debug_color = Color(1.540184e-06, 0.6406053, 0.3520957, 0.41960785)
 
 [node name="Rotatable" type="Node2D" parent="Player"]
 
 [node name="Sprite2D" type="Sprite2D" parent="Player/Rotatable"]
+scale = Vector2(1, 1.75)
 texture = ExtResource("1_k6s54")
 
 [node name="RayCast2D" type="RayCast2D" parent="Player/Rotatable"]
@@ -64,12 +66,23 @@ scale = Vector2(16, 1)
 texture = ExtResource("1_k6s54")
 
 [node name="StaticBody2D4" type="StaticBody2D" parent="."]
-position = Vector2(-256, 157)
+position = Vector2(-285, 157)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
 shape = SubResource("RectangleShape2D_j6xku")
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D4"]
+modulate = Color(0.17645466, 0.63657224, 0.661204, 1)
+scale = Vector2(16, 1)
+texture = ExtResource("1_k6s54")
+
+[node name="StaticBody2D5" type="StaticBody2D" parent="."]
+position = Vector2(307, 95)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D5"]
+shape = SubResource("RectangleShape2D_j6xku")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D5"]
 modulate = Color(0.17645466, 0.63657224, 0.661204, 1)
 scale = Vector2(16, 1)
 texture = ExtResource("1_k6s54")

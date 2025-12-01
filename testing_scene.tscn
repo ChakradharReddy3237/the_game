@@ -99,6 +99,18 @@ modulate = Color(0.17645466, 0.63657224, 0.661204, 1)
 scale = Vector2(16, 1)
 texture = ExtResource("1_k6s54")
 
+[node name="StaticBody2D3" type="StaticBody2D" parent="Level_Geom"]
+position = Vector2(-177, -217)
+rotation = 1.5707964
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level_Geom/StaticBody2D3"]
+shape = SubResource("RectangleShape2D_j6xku")
+
+[node name="Sprite2D" type="Sprite2D" parent="Level_Geom/StaticBody2D3"]
+modulate = Color(0.17645466, 0.63657224, 0.661204, 1)
+scale = Vector2(16, 1)
+texture = ExtResource("1_k6s54")
+
 [node name="StaticBody2D4" type="StaticBody2D" parent="Level_Geom"]
 position = Vector2(-285, 157)
 scale = Vector2(0.72029084, 1.7041297)

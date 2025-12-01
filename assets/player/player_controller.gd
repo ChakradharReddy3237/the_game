@@ -5,9 +5,9 @@ const EXTRA_FALL_GRAVITY = 2.2
 const HANG_GRAVITY = 0.15
 const CUT_GRAVITY = 2.8
 
-const MAX_SPEED = 350.0
+const MAX_SPEED = 390.0
 const MAX_FALL_SPEED = 886.0
-const ACCELERATION = 6100.0
+const ACCELERATION = 7200.0
 
 const JUMP_VELOCITY = -690.0
 const WALL_JUMP_VELOCITY = -720.0
@@ -30,6 +30,8 @@ var jump_buffer_timer = 0.0
 var can_jump = false
 var airborne_friction = false
 
+var is_shielding = false
+
 var on_wall = false
 var wall_dir = 0
 var last_wall_dir = 0
@@ -41,6 +43,9 @@ func _physics_process(delta):
 	apply_gravity(delta)
 	get_input_axis()
 	check_wall()
+	
+	if on_wall:
+		$Rotatable.scale.x = -wall_dir
 
 	if is_on_floor():
 		can_jump = true
@@ -58,6 +63,9 @@ func _physics_process(delta):
 			can_jump = false
 		airborne_friction = true
 		sprite_color = "blue"
+	
+	if Input.is_action_pressed("shield"):
+		is_shielding = true
 
 	if Input.is_action_just_pressed("jump"):
 		jump_buffer_timer = JUMP_BUFFER_TIME
@@ -103,7 +111,6 @@ func check_wall():
 			wall_dir = sign(col.get_normal().x)
 			last_wall_dir = wall_dir
 			on_wall = true
-
 
 func apply_gravity(delta):
 	if vel.y < 0:
@@ -156,8 +163,12 @@ func do_wall_jump():
 	vel.y = WALL_JUMP_VELOCITY
 	vel.x = wall_dir * strong_push
 	wall_jump_lock = WALL_JUMP_CONTROL_LOCK
-	if input_dir == 0 :
+
+	if input_dir == 0:
 		$Rotatable.scale.x = -sign($Rotatable.scale.x)
+	else:
+		$Rotatable.scale.x = -wall_dir
+
 	
 
 func apply_variable_jump(delta):

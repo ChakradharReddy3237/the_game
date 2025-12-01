@@ -3,8 +3,8 @@ extends Control
 @onready var canvas_layer: CanvasLayer = $CanvasLayer
 
 func resume():
-	get_tree().paused = false
 	canvas_layer.visible = false
+	get_tree().paused = false
 func pause():
 	get_tree().paused = true
 	canvas_layer.visible = true
@@ -18,6 +18,7 @@ func test_esc():
 			pause()
 
 func _on_resume_button_down() -> void:
+	await get_tree().create_timer(0.2).timeout
 	resume()
 
 func _on_quit_menu_button_down() -> void:

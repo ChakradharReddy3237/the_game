@@ -6,8 +6,7 @@ func _ready() -> void:
 
 
 func _on_play_button_button_down() -> void:
-	get_tree().change_scene_to_file("res://scenes/testing_scene.tscn")
-	
+	get_tree().change_scene_to_file("res://Scenes/testing_scene.tscn")
 
 func _on_quit_button_down() -> void:
 	get_tree().quit()

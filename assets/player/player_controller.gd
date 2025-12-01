@@ -6,15 +6,18 @@ const HANG_GRAVITY = 0.15
 const CUT_GRAVITY = 2.8
 
 const MAX_SPEED = 390.0
-const MAX_FALL_SPEED = 886.0
+const MAX_FALL_SPEED = 986.0
+const GLIDE_VELOCITY = 110
+const GLIDE_CLIP_VEL = 100
+
 const ACCELERATION = 7200.0
 
 const JUMP_VELOCITY = -690.0
+const MIN_JUMP_VELOCITY = -500.0
+
 const WALL_JUMP_VELOCITY = -720.0
 const WALL_JUMP_PUSH = 270.0
 const WALL_JUMP_CONTROL_LOCK = 0.10
-
-const MIN_JUMP_VELOCITY = -200.0
 
 const COYOTE_TIME = 0.11
 const JUMP_BUFFER_TIME = 0.10
@@ -36,6 +39,7 @@ var on_wall = false
 var wall_dir = 0
 var last_wall_dir = 0
 var wall_jump_lock = 0.0
+var is_gliding = false
 
 var sprite_color = "red"
 
@@ -119,8 +123,15 @@ func apply_gravity(delta):
 		else:
 			vel.y += GRAVITY * delta
 	else:
+		var fall_speed_clip = MAX_FALL_SPEED
+		if Input.is_action_pressed("jump") and vel.y > GLIDE_CLIP_VEL:
+			fall_speed_clip = GLIDE_VELOCITY
+			is_gliding = true
+		else:
+			is_gliding = false
+
 		vel.y += GRAVITY * EXTRA_FALL_GRAVITY * delta
-		vel.y = min(vel.y, MAX_FALL_SPEED)
+		vel.y = min(vel.y, fall_speed_clip)
 
 
 func horizontal_movement(delta):
@@ -138,6 +149,8 @@ func horizontal_movement(delta):
 			vel.x = move_toward(vel.x, target, ACCELERATION * delta * 2.0)
 		else:
 			vel.x = move_toward(vel.x, target, ACCELERATION * delta)
+		
+		
 		$Rotatable.scale.x = sign(axis.x)
 	else:
 		vel.x = move_toward(vel.x, 0, ACCELERATION * delta * 0.7)

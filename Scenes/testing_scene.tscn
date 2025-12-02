@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://c6v2auxiy7ca0"]
+[gd_scene load_steps=13 format=3 uid="uid://c6v2auxiy7ca0"]
 
 [ext_resource type="PackedScene" uid="uid://q1d7iycpesjo" path="res://assets/Prefab_kinda/controlPause.tscn" id="1_ybjcv"]
 [ext_resource type="PackedScene" uid="uid://dprho8jmoqejn" path="res://assets/player/player.tscn" id="2_ybjcv"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://dm6iobhc3btjl" path="res://assets/camera/camera_follow.gd" id="3_s6pog"]
 [ext_resource type="Texture2D" uid="uid://bvcne3n84m38f" path="res://assets/sprites/arrow.png" id="5_8xidb"]
 [ext_resource type="PackedScene" uid="uid://bk3mvo1ti5trv" path="res://assets/level_prefabs/spike/spike.tscn" id="5_j7rnq"]
+[ext_resource type="PackedScene" uid="uid://4sf03s5f00cc" path="res://assets/level_prefabs/spike/killzone.tscn" id="6_lv8lt"]
 [ext_resource type="FontFile" uid="uid://de2oe4cfumvi2" path="res://assets/fonts/monogram.ttf" id="6_mhjv0"]
 [ext_resource type="Script" uid="uid://bo5d28h7vwjfn" path="res://assets/tutorial/tut_dialog.gd" id="7_ulum1"]
 
@@ -21,6 +22,9 @@ size = Vector2(395.26917, 222.5)
 
 [node name="Node2D" type="Node2D"]
 
+[node name="Spawn" type="Node2D" parent="."]
+position = Vector2(-238, -268)
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Pause_Menu" parent="CanvasLayer" instance=ExtResource("1_ybjcv")]
@@ -29,6 +33,7 @@ size = Vector2(395.26917, 222.5)
 position = Vector2(-238, -268)
 
 [node name="Camera2D" type="Camera2D" parent="."]
+process_mode = 3
 script = ExtResource("3_s6pog")
 
 [node name="Level_Geom" type="Node2D" parent="."]
@@ -197,9 +202,19 @@ shape = SubResource("RectangleShape2D_ybjcv")
 
 [node name="Spike" parent="Level_Geom" instance=ExtResource("5_j7rnq")]
 position = Vector2(1035, 1936)
+script = null
+
+[node name="Killzone" parent="Level_Geom/Spike" node_paths=PackedStringArray("player") instance=ExtResource("6_lv8lt")]
+position = Vector2(4, -12)
+player = NodePath("../../../Player")
 
 [node name="Spike2" parent="Level_Geom" instance=ExtResource("5_j7rnq")]
 position = Vector2(755, 1936)
+script = null
+
+[node name="Killzone2" parent="Level_Geom/Spike2" node_paths=PackedStringArray("player") instance=ExtResource("6_lv8lt")]
+position = Vector2(4, -11)
+player = NodePath("../../../Player")
 
 [node name="Node2D" type="Node2D" parent="."]
 

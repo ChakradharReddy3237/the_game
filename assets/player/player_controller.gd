@@ -29,6 +29,7 @@ const WALL_COYOTE_TIME = 0.11
 @onready var eye2 = $Rotatable/Eye2
 @onready var cape = $Rotatable/Cape
 @onready var audio = $AudioPlayer
+@onready var spawn: Node2D = $"../Spawn"
 
 var jump_audio_stream = preload("res://assets/audio/jump.wav")
 var wall_jump_audio_stream = preload("res://assets/audio/wall_jump.wav")
@@ -132,8 +133,6 @@ func update_stamina(delta):
 			stamina += stamina_recovery_rate * delta
 
 	stamina = clamp(stamina, 0.0, max_stamina)
-
-
 
 func get_input_axis():
 	axis.x = float(Input.is_action_pressed("right")) - float(Input.is_action_pressed("left"))
@@ -325,6 +324,7 @@ func update_antennas(delta):
 	elif abs(vel.x) > RUN_THRESHOLD:
 		st = "run"
 
+
 	var t1 = 0.0
 	var t2 = 0.0
 
@@ -414,3 +414,9 @@ func add_stamina(amount: float) -> void:
 func set_stamina_max(value: float) -> void:
 	max_stamina = max(value, 0.0)
 	stamina = clamp(stamina, 0.0, max_stamina)
+
+func die():
+	$".".global_position = spawn.global_position
+	get_tree().paused = true
+	await get_tree().create_timer(0.8).timeout
+	get_tree().paused = false

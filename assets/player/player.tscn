@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dprho8jmoqejn"]
+[gd_scene load_steps=6 format=3 uid="uid://dprho8jmoqejn"]
 
 [ext_resource type="Script" uid="uid://bhdwfypnqwea1" path="res://assets/player/player_controller.gd" id="1_h6syq"]
 [ext_resource type="Texture2D" uid="uid://d24emgns8mtm2" path="res://assets/sprites/white.png" id="2_v2miy"]
 [ext_resource type="AudioStream" uid="uid://dn3g4x2ok68pq" path="res://assets/audio/jump.wav" id="3_v2miy"]
+[ext_resource type="Script" uid="uid://8owo5ayfyqpu" path="res://assets/player/stamina_bar.gd" id="4_ouxva"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7tmfp"]
 size = Vector2(32, 56)
@@ -21,7 +22,7 @@ z_index = 1
 position = Vector2(-7, -17)
 
 [node name="Wings" type="Sprite2D" parent="Rotatable/Cape"]
-modulate = Color(0.9507429, 0, 0.26910797, 1)
+modulate = Color(0.9490196, 0, 0.27058825, 1)
 position = Vector2(-10.5, 17)
 scale = Vector2(0.84375006, 1.25)
 texture = ExtResource("2_v2miy")
@@ -85,3 +86,21 @@ texture = ExtResource("2_v2miy")
 
 [node name="AudioPlayer" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_v2miy")
+
+[node name="StaminaBar" type="Node2D" parent="."]
+z_index = 1
+position = Vector2(0, -68)
+scale = Vector2(1.7200012, 0.28000003)
+script = ExtResource("4_ouxva")
+
+[node name="BarBG" type="Sprite2D" parent="StaminaBar"]
+modulate = Color(0.103743516, 0.10374353, 0.103743516, 1)
+texture = ExtResource("2_v2miy")
+
+[node name="BarFill" type="Node2D" parent="StaminaBar"]
+position = Vector2(-16, 0)
+
+[node name="BarFill" type="Sprite2D" parent="StaminaBar/BarFill"]
+modulate = Color(0.9117393, 0.6679418, 0.18963033, 1)
+position = Vector2(16, 0)
+texture = ExtResource("2_v2miy")

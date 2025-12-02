@@ -1,2 +1,61 @@
 # Normalize EOL for all files that Git considers text files.
 * text=auto eol=lf
+
+# Godot-specific files
+*.gd text eol=lf diff=python
+*.tscn text eol=lf merge=union
+*.tres text eol=lf merge=union
+*.godot text eol=lf
+*.cfg text eol=lf
+*.import text eol=lf
+
+# Documentation
+*.md text eol=lf
+*.txt text eol=lf
+
+# Scripts
+*.sh text eol=lf
+*.bat text eol=crlf
+
+# Images (binary)
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.bmp binary
+*.svg binary
+*.webp binary
+
+# Audio (binary)
+*.wav binary
+*.ogg binary
+*.mp3 binary
+*.flac binary
+
+# Fonts (binary)
+*.ttf binary
+*.otf binary
+*.woff binary
+*.woff2 binary
+
+# 3D Models (binary)
+*.obj binary
+*.fbx binary
+*.gltf binary
+*.glb binary
+*.dae binary
+
+# Archives (binary)
+*.zip binary
+*.7z binary
+*.tar binary
+*.gz binary
+*.rar binary
+
+# Executables (binary)
+*.exe binary
+*.dll binary
+*.so binary
+*.dylib binary
+*.pck binary

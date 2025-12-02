@@ -47,4 +47,5 @@ text = "Quit
 "
 
 [connection signal="button_down" from="VBoxContainer/Play_button" to="." method="_on_play_button_button_down"]
+[connection signal="button_down" from="VBoxContainer/Options" to="." method="_on_options_pressed"]
 [connection signal="button_down" from="VBoxContainer/quit" to="." method="_on_quit_button_down"]

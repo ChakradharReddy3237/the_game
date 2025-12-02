@@ -9,8 +9,33 @@ extends Camera2D
 var player: Node2D
 var _look_offset := Vector2.ZERO
 
+# Screen shake variables
+var shake_amount: float = 0.0
+var shake_duration: float = 0.0
+var shake_timer: float = 0.0
+var shake_offset := Vector2.ZERO
+
 func _ready() -> void:
 	player = get_node("../Player")
+	randomize()
+
+func _process(delta: float) -> void:
+	# Update screen shake
+	if shake_timer > 0.0:
+		shake_timer -= delta
+		
+		# Random offset for shake
+		shake_offset = Vector2(
+			randf_range(-shake_amount, shake_amount),
+			randf_range(-shake_amount, shake_amount)
+		)
+		
+		# Reduce shake over time
+		shake_amount = lerp(shake_amount, 0.0, delta * 5.0)
+	else:
+		# Reset offset when shake is done
+		shake_offset = Vector2.ZERO
+		shake_amount = 0.0
 
 func _physics_process(delta: float) -> void:
 	var p := player.global_position
@@ -57,3 +82,11 @@ func _physics_process(delta: float) -> void:
 	target += _look_offset
 
 	global_position = global_position.lerp(target, camera_lerp_speed * delta)
+	
+	# Apply shake offset (doesn't affect target position calculation)
+	offset = shake_offset
+
+func shake(duration: float = 0.3, amount: float = 10.0) -> void:
+	shake_timer = duration
+	shake_duration = duration
+	shake_amount = amount

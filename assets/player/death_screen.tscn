@@ -1,0 +1,60 @@
+[gd_scene load_steps=4 format=3 uid="uid://c1m5ywbf3qj3y"]
+
+[ext_resource type="Script" path="res://assets/player/death_screen.gd" id="1_death"]
+[ext_resource type="FontFile" uid="uid://de2oe4cfumvi2" path="res://assets/fonts/monogram.ttf" id="2_death"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_death"]
+font = ExtResource("2_death")
+font_size = 128
+font_color = Color(1, 0.2, 0.2, 1)
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
+[node name="DeathScreen" type="CanvasLayer"]
+layer = 100
+process_mode = 3
+script = ExtResource("1_death")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.5)
+
+[node name="DeathLabel" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -100.0
+offset_right = 300.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "YOU DIED"
+label_settings = SubResource("LabelSettings_death")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RestartHint" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = 50.0
+offset_right = 200.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_fonts/font = ExtResource("2_death")
+theme_override_font_sizes/font_size = 48
+text = "Press R to restart"
+horizontal_alignment = 1
+vertical_alignment = 1

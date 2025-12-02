@@ -30,6 +30,8 @@ const WALL_COYOTE_TIME = 0.11
 @onready var cape = $Rotatable/Cape
 @onready var audio = $AudioPlayer
 @onready var spawn: Node2D = $"../Spawn"
+@onready var camera: Camera2D = $"../Camera2D"
+@onready var death_screen: CanvasLayer = $"../CanvasLayer/DeathScreen"
 
 var jump_audio_stream = preload("res://assets/audio/jump.wav")
 var wall_jump_audio_stream = preload("res://assets/audio/wall_jump.wav")
@@ -415,8 +417,55 @@ func set_stamina_max(value: float) -> void:
 	max_stamina = max(value, 0.0)
 	stamina = clamp(stamina, 0.0, max_stamina)
 
+func bounce_from_stomp() -> void:
+	# Give player a nice bounce when stomping an enemy
+	vel.y = JUMP_VELOCITY * 0.65  # 65% of normal jump height
+	can_jump = false
+	glide_delay = glide_delay_time
+	
+	# Play jump sound
+	audio.stream = jump_audio_stream
+	audio.play()
+	
+	# Small camera shake for feedback
+	if camera and camera.has_method("shake"):
+		camera.shake(0.15, 8.0)
+
 func die():
-	$".".global_position = spawn.global_position
+	print("Player died!")
+	
+	# Screen shake effect
+	if camera and camera.has_method("shake"):
+		camera.shake(0.5, 15.0)
+		print("Camera shake triggered")
+	
+	# Show death screen
+	if death_screen:
+		print("Death screen found: ", death_screen)
+		if death_screen.has_method("show_death_screen"):
+			death_screen.show_death_screen()
+			print("Death screen shown")
+		else:
+			print("Death screen doesn't have show_death_screen method")
+	else:
+		print("Death screen is null!")
+	
+	# Pause and respawn
 	get_tree().paused = true
-	await get_tree().create_timer(0.8).timeout
+	await get_tree().create_timer(1.2).timeout
+	
+	# Hide death screen before respawn
+	if death_screen and death_screen.has_method("hide_death_screen"):
+		death_screen.hide_death_screen()
+	
+	# Reset player position and velocity
+	$".".global_position = spawn.global_position
+	velocity = Vector2.ZERO
+	
+	# Reset camera to player position immediately
+	if camera:
+		camera.global_position = spawn.global_position
+		camera.reset_physics_interpolation()
+	
 	get_tree().paused = false
+

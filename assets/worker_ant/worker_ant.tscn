@@ -8,6 +8,9 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lv8lt"]
 size = Vector2(82.5, 43)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_stomp"]
+size = Vector2(60, 10)
+
 [sub_resource type="LabelSettings" id="LabelSettings_5peaj"]
 font = ExtResource("4_axdij")
 font_size = 64
@@ -97,3 +100,11 @@ label_settings = SubResource("LabelSettings_5peaj")
 
 [node name="Killzone" parent="." instance=ExtResource("2_5iji7")]
 scale = Vector2(0.5020332, 1.6238741)
+
+[node name="StompZone" type="Area2D" parent="."]
+position = Vector2(-5, -12)
+collision_layer = 0
+collision_mask = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StompZone"]
+shape = SubResource("RectangleShape2D_stomp")
